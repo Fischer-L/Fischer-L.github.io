@@ -1,0 +1,43 @@
+html {
+	font-size : 16px;
+}
+
+h6 {
+	font-size : 1rem;
+}
+
+h5 {
+	font-size : 1.5 * 1rem;
+}
+
+h4 {
+	font-size : 2 * 1rem;
+}
+
+h3 {
+	font-size : 2.5 * 1rem;
+}
+
+h2 {
+	font-size : 3 * 1rem;
+}
+
+h1 {
+	font-size : 4 * 1rem;
+}
+
+.header {
+
+	width : 100%;
+	height : 4rem;
+	background : #f1f2f3;
+	padding-top : 3.8rem;
+	padding-bottom : 4.2rem;
+	
+	&-logo {
+		width : 4rem;
+		color : #212223;
+	}
+}
+
+// -- Functions --

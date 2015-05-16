@@ -7,7 +7,7 @@
 </head>
 
 <body>
-<div>version : 7</div>
+<div>version : 8</div>
 <div id="old"></div>
 <div id="es6"></div>
 
@@ -54,12 +54,12 @@ old = function () {
 
 es6 = function () {
 	var { data : [ id, { name } ] } = user;
-                             
+        alert(id + name);
 };
 
 var i, olds = [], es6s = [];
 
-for (i = 0; i < 30; ++i) {
+for (i = 0; i < 1; ++i) {
 	olds.push(evaluate("old", old));
 	es6s.push(evaluate("es6", es6));
 }

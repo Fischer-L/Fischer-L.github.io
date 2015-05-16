@@ -7,7 +7,7 @@
 </head>
 
 <body>
-<div>1</div>
+<div>2</div>
 <div id="old"></div>
 <div id="es6"></div>
 
@@ -24,13 +24,13 @@ user = {
 evaluate = function (tag, func) {
 	try {
 	var u, 
-	    s = performance ? performance.now() : (new Date()).getTime();
+	    s = performance && performance.now ? performance.now() : (new Date()).getTime();
 
 	for (var i = 0; i < 500000; ++i) {
 			u = func();
 	}
 
-	var e = performance ? performance.now() : (new Date()).getTime();
+	var e = performance && performance.now ? performance.now() : (new Date()).getTime();
 
 	document.getElementById(tag).innerHTML = tag + " : " + (e - s);
 	} catch (e) {

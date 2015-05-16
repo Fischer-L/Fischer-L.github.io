@@ -7,7 +7,7 @@
 </head>
 
 <body>
-<div>version : 8</div>
+<div>version : 9</div>
 <div id="old"></div>
 <div id="es6"></div>
 
@@ -27,8 +27,8 @@ evaluate = function (id, func) {
 
 	s = window.performance ? performance.now() : (new Date()).getTime();
 	
-	for (i = 0; i < 1; ++i) {
-			u = func();
+	for (i = 0; i < 50000; ++i) {
+		u = func();
 	}
 
 	e = window.performance ? performance.now() : (new Date()).getTime();
@@ -59,7 +59,7 @@ es6 = function () {
 
 var i, olds = [], es6s = [];
 
-for (i = 0; i < 1; ++i) {
+for (i = 0; i < 30; ++i) {
 	olds.push(evaluate("old", old));
 	es6s.push(evaluate("es6", es6));
 }

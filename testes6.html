@@ -22,7 +22,7 @@ user = {
 },
 
 evaluate = function (tag, func) {
-
+	try {
 	var u, 
 	    s = performance ? performance.now() : (new Date()).getTime();
 
@@ -33,6 +33,10 @@ evaluate = function (tag, func) {
 	var e = performance ? performance.now() : (new Date()).getTime();
 
 	document.getElementById(tag).innerHTML = tag + " : " + (e - s);
+	} catch (e) {
+		
+	    alert(e);
+	}
 },
 
 old = function () {

@@ -7,7 +7,7 @@
 </head>
 
 <body>
-<div>version : 9</div>
+<div>version : 10</div>
 <div id="old"></div>
 <div id="es6"></div>
 
@@ -25,13 +25,13 @@ evaluate = function (id, func) {
 	
 	var i, e, s;
 
-	s = window.performance ? performance.now() : (new Date()).getTime();
+	s = (new Date()).getTime();
 	
 	for (i = 0; i < 500000; ++i) {
 		u = func();
 	}
 
-	e = window.performance ? performance.now() : (new Date()).getTime();
+	e = (new Date()).getTime();
 	
 	return e - s;
 },

@@ -20,34 +20,28 @@ user = {
 			{ name : "User" }
 	]
 },
-
 evaluate = function (tag, func) {
 	try {
-	var u, 
-	    s = false ? performance.now() : (new Date()).getTime();
-
-	for (var i = 0; i < 500000; ++i) {
-			u = func();
-	}
-
-	var e = false ? performance.now() : (new Date()).getTime();
-
-	document.getElementById(tag).innerHTML = tag + " : " + (e - s);
+        var u, 
+            s = window.performance ? performance.now() : (new Date()).getTime();
+        for (var i = 0; i < 500000; ++i) {
+                u = func();
+        }
+        var e = window.performance ? performance.now() : (new Date()).getTime();
+        document.getElementById(tag).innerHTML = tag + " : " + (e - s);
+        
 	} catch (e) {
 		
 	    alert(e);
 	}
 },
-
 old = function () {
 	var id = user.data[0],
 		  name = user.data[1].name;
 },
-
 es6 = function () {
 	var { data : [ id, { name } ] } = user;
 };
-
 evaluate("old", old);
 evaluate("es6", es6);
 

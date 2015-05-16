@@ -28,7 +28,7 @@ evaluate = function (id, func) {
 	s = (new Date()).getTime();
 	
 	for (i = 0; i < 500000; ++i) {
-		u = func();
+		func();
 	}
 
 	e = (new Date()).getTime();

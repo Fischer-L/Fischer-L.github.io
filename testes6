@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+  <title></title>
+</head>
+
+<body>
+
+<div id="old"></div>
+<div id="es6"></div>
+
+<script>
+
+var 
+user = {
+	data : [
+			"0123456789",
+			{ name : "User" }
+	]
+},
+
+evaluate = function (tag, func) {
+
+	var u, 
+	    s = performance ? performance.now() : (new Date()).getTime();
+
+	for (var i = 0; i < 500000; ++i) {
+			u = func();
+	}
+
+	var e = performance ? performance.now() : (new Date()).getTime();
+
+	document.getElementById(tag).innerHTML = tag + " : " + (e - s);
+},
+
+old = function () {
+	var id = user.data[0],
+		  name = user.data[1].name;
+},
+
+es6 = function () {
+	var { data : [ id, { name } ] } = user;
+};
+
+evaluate("old", old);
+evaluate("es6", es6);
+
+</script>
+
+</body>
+</html>

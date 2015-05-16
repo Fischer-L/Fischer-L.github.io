@@ -20,30 +20,52 @@ user = {
 			{ name : "User" }
 	]
 },
-evaluate = function (tag, func) {
-	try {
-        var u, 
-            s = window.performance ? performance.now() : (new Date()).getTime();
-        for (var i = 0; i < 500000; ++i) {
-                u = func();
-        }
-        var e = window.performance ? performance.now() : (new Date()).getTime();
-        document.getElementById(tag).innerHTML = tag + " : " + (e - s);
-        
-	} catch (e) {
-		
-	    alert(e);
+
+evaluate = function (id, func) {
+	
+	var i, e, s;
+
+	s = window.performance ? performance.now() : (new Date()).getTime();
+	
+	for (i = 0; i < 500000; ++i) {
+			u = func();
 	}
+
+	e = window.performance ? performance.now() : (new Date()).getTime();
+	
+	return e - s;
 },
+
+calAVG = function (id, msArr) {
+	
+	var sum = 0;
+	
+	for (i = msArr.length - 1; i >= 0; --i) sum += msArr[i];
+	
+	document.getElementById(id).innerHTML = "AVG " + id + " ms = " + (sum / msArr.length);
+},
+
 old = function () {
+
 	var id = user.data[0],
-		  name = user.data[1].name;
+		name = user.data[1].name;
+        
 },
+
 es6 = function () {
 	var { data : [ id, { name } ] } = user;
+                             
 };
-evaluate("es6", es6);
-evaluate("old", old);
+
+var i, olds = [], es6s = [];
+
+for (i = 0; i < 10; ++i) {
+	olds.push(evaluate("old", old));
+	es6s.push(evaluate("es6", es6));
+}
+
+calAVG("old", olds);
+calAVG("es6", es6s);
 
 </script>
 

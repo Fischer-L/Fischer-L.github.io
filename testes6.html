@@ -7,7 +7,7 @@
 </head>
 
 <body>
-<div>version : 10</div>
+<div>version : 11</div>
 <div id="old"></div>
 <div id="es6"></div>
 
@@ -21,7 +21,7 @@ user = {
 	]
 },
 
-evaluate = function (id, func) {
+evaluate = function (func) {
 	
 	var i, e, s;
 
@@ -59,8 +59,8 @@ es6 = function () {
 var i, olds = [], es6s = [];
 
 for (i = 0; i < 30; ++i) {
-	olds.push(evaluate("old", old));
-	es6s.push(evaluate("es6", es6));
+	olds.push(evaluate(old));
+	es6s.push(evaluate(es6));
 }
 
 calAVG("old", olds);

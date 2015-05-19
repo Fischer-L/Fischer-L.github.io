@@ -7,11 +7,13 @@
 </head>
 
 <body>
-<div>version : 16</div>
+<div>version : 17</div>
 <div id="old2user"></div>
 <div id="es62user"></div>
 <div id="old2account"></div>
 <div id="es62account"></div>
+<div id="old2array"></div>
+<div id="es62array"></div>
 
 <script>
 
@@ -57,6 +59,13 @@ account = {
 		}
 	}
 },
+
+array = [
+	0,
+	[ 1.0, 1.1 ],
+	[ 1.0, [ 2.0, 2.1 ] ],
+	[ 1.0, [ 2.0, [ 3.0, 3.1 ] ] ]
+],
 
 evaluate = function (func) {
 	
@@ -126,21 +135,49 @@ es62account = function () {
 	      }
 	      
 	   } = account;
-}
+},
 
-var i, olds2user = [], es6s2user = [], olds2account = [], es6s2account = [];
+old2array = function () {
+	var
+	a0 = array[0],
+	a10 = array[1][0],
+	a10_1 = array[2][0],
+	a20 = array[2][1][0],
+	a20_2 = array[3][1][0],
+	a30 = array[3][1][1][0],
+	a31 = array[3][1][1][1];
+},
+
+es6array = function () {
+	var [
+	    	a0,
+	    	
+	    	[ a10 ],
+	    	
+	    	[ a10_2, [ a20 ] ],
+	    	
+	    	[      [ a20_2, [ a30, a31 ] ] ]
+	    	
+	    ] = array;
+};
+
+var i, olds2user = [], es6s2user = [], olds2account = [], es6s2account = [], olds2array = [], es6s2array = [];
 
 for (i = 0; i < 30; ++i) {
 	olds2user.push(evaluate(old2user));
 	es6s2user.push(evaluate(es62user));
 	olds2account.push(evaluate(old2account));
 	es6s2account.push(evaluate(es62account));
+	olds2array.push(evaluate(old2array));
+	es6s2array.push(evaluate(es62array));
 }
 
 calAVG("old2user", olds2user);
 calAVG("es62user", es6s2user);
 calAVG("old2account", olds2account);
 calAVG("es62account", es6s2account);
+calAVG("old2array", olds2array);
+calAVG("es62array", es6s2array);
 
 </script>
 

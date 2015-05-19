@@ -7,7 +7,7 @@
 </head>
 
 <body>
-<div>version : 18</div>
+<div>version : 19</div>
 <div id="old2user"></div>
 <div id="es62user"></div>
 <div id="old2account"></div>
@@ -141,9 +141,10 @@ old2array = function () {
 	var
 	a0 = array[0],
 	a10 = array[1][0],
-	a10_1 = array[2][0],
+	a10_2 = array[2][0],
 	a20 = array[2][1][0],
-	a20_2 = array[3][1][0],
+	a10_3 = array[3][0],
+	a20_3 = array[3][1][0],
 	a30 = array[3][1][1][0],
 	a31 = array[3][1][1][1];
 },
@@ -156,7 +157,7 @@ es62array = function () {
 	    	
 	    	[ a10_2, [ a20 ] ],
 	    	
-	    	[      [ a20_2, [ a30, a31 ] ] ]
+	    	[ a10_3, [ a20_3, [ a30, a31 ] ] ]
 	    	
 	    ] = array;
 };

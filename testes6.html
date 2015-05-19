@@ -7,7 +7,7 @@
 </head>
 
 <body>
-<div>version : 14</div>
+<div>version : 15</div>
 <div id="old"></div>
 <div id="es6"></div>
 
@@ -103,21 +103,24 @@ old2account = function () {
 es62account = function () {
 	
 	var { id,
+	
 	      user : {
 	          name,
+	          
 	          addr : {
 	          	street
+	          },
+	          
+	          portfolio : {
+	      	      stock : {
+	      	      	    APPL
+	      	      },
+	      	      bond : {
+	      	  	    GOOG : {
+	      	  	        number
+	      	  	    }
+	      	      }
 	          }
-	      },
-	      portfolio : {
-	      	  stock : {
-	      	  	APPL
-	      	  },
-	      	  bond : {
-	      	  	GOOG : {
-	      	  	    number
-	      	  	}
-	      	  }
 	      }
 	      
 	   } = account;

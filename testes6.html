@@ -7,25 +7,25 @@
 </head>
 
 <body>
-<div>version : 20</div>
-<div id="old2user"></div>
-<div id="es62user"></div>
-<div id="old2account"></div>
-<div id="es62account"></div>
-<div id="old2array"></div>
-<div id="es62array"></div>
+<div>version : 21</div>
+<div id="old_assign_to_simple_obj"></div>
+<div id="es6_assign_to_simple_obj"></div>
+<div id="old_assign_to_complex_obj"></div>
+<div id="es6_assign_to_complex_obj"></div>
+<div id="old_assign_to_array"></div>
+<div id="es6_assign_to_array"></div>
 
 <script>
 
 var 
-user = {
+simpleObj = {
 	data : [
 			"0123456789",
 			{ name : "User" }
 	]
 },
 
-account = {
+complexObj = {
 	id : 123456789,
 	user : {
 		name : "User",	
@@ -91,27 +91,27 @@ calAVG = function (id, msArr) {
 	document.getElementById(id).innerHTML = "Avg " + id + " ms = " + (sum / msArr.length);
 },
 
-old2user = function () {
+old_assign_to_simple_obj = function () {
 
-	var id = user.data[0],
-		name = user.data[1].name;
+	var id = simpleObj.data[0],
+		name = simpleObj.data[1].name;
         
 },
 
-es62user = function () {
-	var { data : { 0: id, 1: { name } } } = user;
+es6_assign_to_simple_obj = function () {
+	var { data : { 0: id, 1: { name } } } = simpleObj;
 },
 
-old2account = function () {
+old_assign_to_complex_obj = function () {
 	var
-	id = account.id,
-	name = account.user.name,
-	street = account.user.addr.street,
-	APPL = account.user.portfolio.stock.APPL,
-	number = account.user.portfolio.bond.GOOG.number;
+	id = complexObj.id,
+	name = complexObj.user.name,
+	street = complexObj.user.addr.street,
+	APPL = complexObj.user.portfolio.stock.APPL,
+	number = complexObj.user.portfolio.bond.GOOG.number;
 },
 
-es62account = function () {
+es6_assign_to_complex_obj = function () {
 	
 	var { id,
 	
@@ -134,10 +134,10 @@ es62account = function () {
 	          }
 	      }
 	      
-	   } = account;
+	   } = complexObj;
 },
 
-old2array = function () {
+old_assign_to_array = function () {
 	var
 	a0 = array[0],
 	a10 = array[1][0],
@@ -149,7 +149,7 @@ old2array = function () {
 	a31 = array[3][1][1][1];
 },
 
-es62array = function () {
+es6_assign_to_array = function () {
 	var [
 	    	a0,
 	    	
@@ -162,26 +162,26 @@ es62array = function () {
 	    ] = array;
 };
 
-var i, olds2user = [], es6s2user = [], olds2account = [], es6s2account = [], olds2array = [], es6s2array = [];
+var i, olds2simpleObj = [], es6s2simpleObj = [], olds2complexObj = [], es6s2complexObj = [], olds2array = [], es6s2array = [];
 
 for (i = 0; i < 30; ++i) {
-	olds2user.push(evaluate(old2user));
-	es6s2user.push(evaluate(es62user));
-	olds2account.push(evaluate(old2account));
-	es6s2account.push(evaluate(es62account));
+	olds2simpleObj.push(evaluate(old_assign_to_simple_obj));
+	es6s2simpleObj.push(evaluate(es6_assign_to_simple_obj));
+	olds2complexObj.push(evaluate(old_assign_to_complex_obj));
+	es6s2complexObj.push(evaluate(es6_assign_to_complex_obj));
 }
 
 for (i = 0; i < 3; ++i) {
-	olds2array.push(evaluate(old2array));
-	es6s2array.push(evaluate(es62array));
+	olds2array.push(evaluate(old_assign_to_array));
+	es6s2array.push(evaluate(es6_assign_to_array));
 }
 
-calAVG("old2user", olds2user);
-calAVG("es62user", es6s2user);
-calAVG("old2account", olds2account);
-calAVG("es62account", es6s2account);
-calAVG("old2array", olds2array);
-calAVG("es62array", es6s2array);
+calAVG("old_assign_to_simple_obj", olds2simpleObj);
+calAVG("es6_assign_to_simple_obj", es6s2simpleObj);
+calAVG("old_assign_to_complex_obj", olds2complexObj);
+calAVG("es6_assign_to_complex_obj", es6s2complexObj);
+calAVG("old_assign_to_array", olds2array);
+calAVG("es6_assign_to_array", es6s2array);
 
 </script>
 

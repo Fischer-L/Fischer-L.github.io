@@ -7,7 +7,7 @@
 </head>
 
 <body>
-<div>version : 12</div>
+<div>version : 13</div>
 <div id="old"></div>
 <div id="es6"></div>
 
@@ -19,6 +19,41 @@ user = {
 			"0123456789",
 			{ name : "User" }
 	]
+},
+
+account = {
+	id : 123456789,
+	user : {
+		name : "User",	
+		age : 20,
+		addr : {
+			zip : 100,
+			street : "street",
+			country : "country"
+		},
+		portfolio : {
+			stock : {
+				APPL : {	
+					number : 100.9,
+					price : 100
+				},
+				GOOG : {
+					number : 100.9547,
+					price : 100.123456
+				}
+			},
+			bond : {
+				APPL : {	
+					number : 100,
+					price : 100
+				},
+				GOOG : {
+					number : 100,
+					price : 100
+				}
+			}
+		}
+	}
 },
 
 evaluate = function (func) {
@@ -45,26 +80,62 @@ calAVG = function (id, msArr) {
 	document.getElementById(id).innerHTML = "Avg " + id + " ms = " + (sum / msArr.length);
 },
 
-old = function () {
+old2user = function () {
 
 	var id = user.data[0],
 		name = user.data[1].name;
         
 },
 
-es6 = function () {
+es62user = function () {
 	var { data : { 0: id, 1: { name } } } = user;
-};
+},
 
-var i, olds = [], es6s = [];
+old2account = function () {
+	var
+	id = account.id,
+	name = account.user.name,
+	street = account.user.addr.street,
+	APPL = account.portfolio.stock.APPL,
+	number = account.portfolio.bond.GOOG.number;
+},
 
-for (i = 0; i < 30; ++i) {
-	olds.push(evaluate(old));
-	es6s.push(evaluate(es6));
+es62account = function () {
+	
+	var { id,
+	      user : {
+	          name,
+	          addr : {
+	          	street
+	          }
+	      },
+	      portfolio : {
+	      	  stock : {
+	      	  	APPL
+	      	  },
+	      	  bond : {
+	      	  	GOOG : {
+	      	  	    number
+	      	  	}
+	      	  }
+	      }
+	      
+	   } = account;
 }
 
-calAVG("old", olds);
-calAVG("es6", es6s);
+var i, olds2user = [], es6s2user = [], olds2account = [], es6s2account = [];
+
+for (i = 0; i < 30; ++i) {
+	olds2user.push(evaluate(old2user));
+	es6s2user.push(evaluate(es62user));
+	olds2account.push(evaluate(old2account));
+	es6s2account.push(evaluate(es62account));
+}
+
+calAVG("old2user", olds2user);
+calAVG("es62user", es6s2user);
+calAVG("old2account", olds2account);
+calAVG("es62account", es6s2account);
 
 </script>
 

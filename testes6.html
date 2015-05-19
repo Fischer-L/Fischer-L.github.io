@@ -7,7 +7,7 @@
 </head>
 
 <body>
-<div>version : 21</div>
+<div>version : 22</div>
 <div id="old_assign_to_simple_obj"></div>
 <div id="es6_assign_to_simple_obj"></div>
 <div id="old_assign_to_complex_obj"></div>
@@ -19,10 +19,10 @@
 
 var 
 simpleObj = {
-	data : [
-			"0123456789",
-			{ name : "User" }
-	]
+	data : {
+			id : "0123456789",
+			user : { name : "User" }
+	}
 },
 
 complexObj = {
@@ -93,13 +93,13 @@ calAVG = function (id, msArr) {
 
 old_assign_to_simple_obj = function () {
 
-	var id = simpleObj.data[0],
-		name = simpleObj.data[1].name;
+	var id = simpleObj.data.id,
+		name = simpleObj.data.user.name;
         
 },
 
 es6_assign_to_simple_obj = function () {
-	var { data : { 0: id, 1: { name } } } = simpleObj;
+	var { data : { id, user : { name } } } = simpleObj;
 },
 
 old_assign_to_complex_obj = function () {

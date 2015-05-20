@@ -139,14 +139,14 @@ es6_assign_to_complex_obj = function () {
 
 old_assign_to_complexArray = function () {
 	var
-	a0 = array[0],
-	a10 = array[1][0],
-	a10_2 = array[2][0],
-	a20 = array[2][1][0],
-	a10_3 = array[3][0],
-	a20_3 = array[3][1][0],
-	a30 = array[3][1][1][0],
-	a31 = array[3][1][1][1];
+	a0 = complexArray[0],
+	a10 = complexArray[1][0],
+	a10_2 = complexArray[2][0],
+	a20 = complexArray[2][1][0],
+	a10_3 = complexArray[3][0],
+	a20_3 = complexArray[3][1][0],
+	a30 = complexArray[3][1][1][0],
+	a31 = complexArray[3][1][1][1];
 },
 
 es6_assign_to_complexArray = function () {
@@ -159,7 +159,7 @@ es6_assign_to_complexArray = function () {
 	    	
 	    	[ a10_3, [ a20_3, [ a30, a31 ] ] ]
 	    	
-	    ] = array;
+	    ] = complexArray;
 };
 
 var i, olds2simpleObj = [], es6s2simpleObj = [], olds2complexObj = [], es6s2complexObj = [], olds2complexArray = [], es6s2complexArray = [];

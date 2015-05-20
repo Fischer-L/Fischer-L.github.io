@@ -7,13 +7,13 @@
 </head>
 
 <body>
-<div>version : 22</div>
+<div>version : 23</div>
 <div id="old_assign_to_simple_obj"></div>
 <div id="es6_assign_to_simple_obj"></div>
 <div id="old_assign_to_complex_obj"></div>
 <div id="es6_assign_to_complex_obj"></div>
-<div id="old_assign_to_array"></div>
-<div id="es6_assign_to_array"></div>
+<div id="old_assign_to_complexArray"></div>
+<div id="es6_assign_to_complexArray"></div>
 
 <script>
 
@@ -60,7 +60,7 @@ complexObj = {
 	}
 },
 
-array = [
+complexArray = [
 	0,
 	[ 1.0, 1.1 ],
 	[ 1.0, [ 2.0, 2.1 ] ],
@@ -137,7 +137,7 @@ es6_assign_to_complex_obj = function () {
 	   } = complexObj;
 },
 
-old_assign_to_array = function () {
+old_assign_to_complexArray = function () {
 	var
 	a0 = array[0],
 	a10 = array[1][0],
@@ -149,7 +149,7 @@ old_assign_to_array = function () {
 	a31 = array[3][1][1][1];
 },
 
-es6_assign_to_array = function () {
+es6_assign_to_complexArray = function () {
 	var [
 	    	a0,
 	    	
@@ -162,7 +162,7 @@ es6_assign_to_array = function () {
 	    ] = array;
 };
 
-var i, olds2simpleObj = [], es6s2simpleObj = [], olds2complexObj = [], es6s2complexObj = [], olds2array = [], es6s2array = [];
+var i, olds2simpleObj = [], es6s2simpleObj = [], olds2complexObj = [], es6s2complexObj = [], olds2complexArray = [], es6s2complexArray = [];
 
 for (i = 0; i < 30; ++i) {
 	olds2simpleObj.push(evaluate(old_assign_to_simple_obj));
@@ -172,16 +172,16 @@ for (i = 0; i < 30; ++i) {
 }
 
 for (i = 0; i < 3; ++i) {
-	olds2array.push(evaluate(old_assign_to_array));
-	es6s2array.push(evaluate(es6_assign_to_array));
+	olds2array.push(evaluate(old_assign_to_complexArray));
+	es6s2array.push(evaluate(es6_assign_to_complexArray));
 }
 
 calAVG("old_assign_to_simple_obj", olds2simpleObj);
 calAVG("es6_assign_to_simple_obj", es6s2simpleObj);
 calAVG("old_assign_to_complex_obj", olds2complexObj);
 calAVG("es6_assign_to_complex_obj", es6s2complexObj);
-calAVG("old_assign_to_array", olds2array);
-calAVG("es6_assign_to_array", es6s2array);
+calAVG("old_assign_to_complexArray", olds2complexArray);
+calAVG("es6_assign_to_complexArray", es6s2complexArray);
 
 </script>
 

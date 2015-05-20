@@ -7,13 +7,7 @@
 </head>
 
 <body>
-<div>version : 23</div>
-<div id="old_assign_to_simple_obj"></div>
-<div id="es6_assign_to_simple_obj"></div>
-<div id="old_assign_to_complex_obj"></div>
-<div id="es6_assign_to_complex_obj"></div>
-<div id="old_assign_to_complexArray"></div>
-<div id="es6_assign_to_complexArray"></div>
+<div>version : 24</div>
 
 <script>
 
@@ -60,6 +54,8 @@ complexObj = {
 	}
 },
 
+simpleArray = [ 0, 1, 2, 3 ],
+
 complexArray = [
 	0,
 	[ 1.0, 1.1 ],
@@ -88,7 +84,12 @@ calAVG = function (id, msArr) {
 	
 	for (i = msArr.length - 1; i >= 0; --i) sum += msArr[i];
 	
-	document.getElementById(id).innerHTML = "Avg " + id + " ms = " + (sum / msArr.length);
+	var div = document.createElement("DIV");
+	
+	div.id = id;
+	div.innerHTML = "Avg " + id + " ms = " + (sum / msArr.length);
+	
+	document.body.appendChild(div);
 },
 
 old_assign_to_simple_obj = function () {
@@ -137,6 +138,17 @@ es6_assign_to_complex_obj = function () {
 	   } = complexObj;
 },
 
+old_assignto_simpleArray = function () {
+	var
+	a0 = simpleArray[0],
+	a1 = simpleArray[1],
+	a2 = simpleArray[2]
+},
+
+es6_assign_to_simpleArray = function () {
+	var [ a0, a1 , a2 ] = simpleArray;
+},
+
 old_assign_to_complexArray = function () {
 	var
 	a0 = complexArray[0],
@@ -162,7 +174,12 @@ es6_assign_to_complexArray = function () {
 	    ] = complexArray;
 };
 
-var i, olds2simpleObj = [], es6s2simpleObj = [], olds2complexObj = [], es6s2complexObj = [], olds2complexArray = [], es6s2complexArray = [];
+var
+i, 
+olds2simpleObj = [], es6s2simpleObj = [],
+olds2complexObj = [], es6s2complexObj = [],
+olds2simpleArray = [], es6s2simpleArray = [],
+olds2complexArray = [], es6s2complexArray = [];
 
 for (i = 0; i < 30; ++i) {
 	olds2simpleObj.push(evaluate(old_assign_to_simple_obj));
@@ -172,6 +189,8 @@ for (i = 0; i < 30; ++i) {
 }
 
 for (i = 0; i < 3; ++i) {
+	olds2simpleArray.push(evaluate(old_assign_to_simpleArray));
+	es6s2simpleArray.push(evaluate(es6_assign_to_simpleArray));
 	olds2complexArray.push(evaluate(old_assign_to_complexArray));
 	es6s2complexArray.push(evaluate(es6_assign_to_complexArray));
 }
@@ -180,6 +199,8 @@ calAVG("old_assign_to_simple_obj", olds2simpleObj);
 calAVG("es6_assign_to_simple_obj", es6s2simpleObj);
 calAVG("old_assign_to_complex_obj", olds2complexObj);
 calAVG("es6_assign_to_complex_obj", es6s2complexObj);
+calAVG("old_assign_to_simpleArray", olds2simpleArray);
+calAVG("es6_assign_to_simpleArray", es6s2simpleArray);
 calAVG("old_assign_to_complexArray", olds2complexArray);
 calAVG("es6_assign_to_complexArray", es6s2complexArray);
 

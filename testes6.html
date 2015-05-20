@@ -17,7 +17,7 @@
 		
 		td {
 			width : 30%;
-			height : 2em;
+			min-height : 2em;
 			line-height : 2em;
 			padding-left : 20px;
 		}
@@ -26,7 +26,7 @@
 
 <body>
 
-<div>version : 27</div>
+<div>version : 28</div>
 <table>
 </table>
 
@@ -96,7 +96,7 @@ evaluate = function (func) {
 
 	e = (new Date()).getTime();
 	
-	return e - s;
+	func.times.push(e - s);
 },
 
 insertComparison = function (old, es6) {
@@ -214,7 +214,7 @@ old_assign_to_simpleArray = mkTestFunc(function old_assign_to_simpleArray() {
 	var
 	a0 = simpleArray[0],
 	a1 = simpleArray[1],
-	a2 = simpleArray[2];
+	a2 = simpleArray[2]
 }),
 
 es6_assign_to_simpleArray = mkTestFunc(function es6_assign_to_simpleArray() {
@@ -263,19 +263,19 @@ es6_for_of_simpleArray = mkTestFunc(function es6_for_of_simpleArray() {
 var i;
 
 for (i = 0; i < 30; ++i) {
-	old_assign_to_simple_obj.times.push(evaluate(old_assign_to_simple_obj));
-	es6_assign_to_simple_obj.times.push(evaluate(es6_assign_to_simple_obj));
-	old_assign_to_complex_obj.times.push(evaluate(old_assign_to_complex_obj));
-	es6_assign_to_complex_obj.times.push(evaluate(es6_assign_to_complex_obj));
+	evaluate(old_assign_to_simple_obj);
+	evaluate(es6_assign_to_simple_obj);
+	evaluate(old_assign_to_complex_obj);
+	evaluate(es6_assign_to_complex_obj);
 }
 
 for (i = 0; i < 3; ++i) {
-	old_assign_to_simpleArray.times.push(evaluate(old_assign_to_simpleArray));
-	es6_assign_to_simpleArray.times.push(evaluate(es6_assign_to_simpleArray));
-	old_assign_to_complexArray.times.push(evaluate(old_assign_to_complexArray));
-	es6_assign_to_complexArray.times.push(evaluate(es6_assign_to_complexArray));
-	old_for_loop_simpleArray.times.push(evaluate(old_for_loop_simpleArray));
-	es6_for_of_simpleArray.times.push(evaluate(es6_for_of_simpleArray));
+	evaluate(old_assign_to_simpleArray);
+	evaluate(es6_assign_to_simpleArray);
+	evaluate(old_assign_to_complexArray);
+	evaluate(es6_assign_to_complexArray);
+	evaluate(old_for_loop_simpleArray);
+	evaluate(es6_for_of_simpleArray);
 }
 
 insertComparison(old_assign_to_simple_obj, es6_assign_to_simple_obj);

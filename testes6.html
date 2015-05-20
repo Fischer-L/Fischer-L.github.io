@@ -3,11 +3,32 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-  <title></title>
+	<title></title>
+	
+	<style>
+		table {
+			width : 100%;
+		}
+		
+		tr.title {
+			background : #efefef;
+			font-weight : bold;
+		}
+		
+		td {
+			width : 30%;
+			height : 2em;
+			line-height : 2em;
+			padding-left : 20px;
+		}
+	</style>
 </head>
 
 <body>
-<div>version : 24</div>
+
+<div>version : 26</div>
+<table>
+</table>
 
 <script>
 
@@ -78,41 +99,92 @@ evaluate = function (func) {
 	return e - s;
 },
 
-calAVG = function (id, msArr) {
+insertComparison = function (old, es6) {
 	
-	var sum = 0;
+	var
+	tr = document.createElement("TR"),
+	td = document.createElement("TD"),
+	table = document.querySelector("table");
 	
-	for (i = msArr.length - 1; i >= 0; --i) sum += msArr[i];
+	tr.className = "title";
 	
-	var div = document.createElement("DIV");
+	td.innerHTML = old.name + " (ms)";
+	tr.appendChild(td);
 	
-	div.id = id;
-	div.innerHTML = "Avg " + id + " ms = " + (sum / msArr.length);
+	td = td.cloneNode();
+	td.innerHTML = es6.name + " (ms)";
+	tr.appendChild(td);
 	
-	document.body.appendChild(div);
+	td = td.cloneNode();
+	td.innerHTML = "es6 / old";
+	tr.appendChild(td);
+	
+	table.appendChild(tr);
+	
+	tr = tr.cloneNode();
+	tr.className = "value";
+	
+	td = td.cloneNode();
+	
+	td.innerHTML = old.getAvg();
+	tr.appendChild(td);	
+	
+	td = td.cloneNode();
+	td.innerHTML = es6.getAvg();
+	tr.appendChild(td);	
+	
+	td = td.cloneNode();
+	td.innerHTML = es6.getAvg() / old.getAvg();
+	tr.appendChild(td);	
+	
+	table.appendChild(tr);
 },
 
-old_assign_to_simple_obj = function () {
+mkTestFunc = function (func) {
+
+	func.times = [];
+	
+	func.avgTime = -1;
+	
+	func.getAvg = function () {
+		
+		if (this.avgTime < 0) {
+		
+			var sum = this.times.reduce(function (accum, ms) {
+				return accum + ms;
+			}, 0);
+			
+			this.avgTime = sum / this.times.length;
+		}
+		
+		return this.avgTime;
+	}
+	
+	return func;
+},
+
+old_assign_to_simple_obj = mkTestFunc(function old_assign_to_simple_obj() {
 
 	var id = simpleObj.data.id,
 		name = simpleObj.data.user.name;
         
-},
+}),
 
-es6_assign_to_simple_obj = function () {
+es6_assign_to_simple_obj = mkTestFunc(function es6_assign_to_simple_obj() {
 	var { data : { id, user : { name } } } = simpleObj;
-},
+}),
 
-old_assign_to_complex_obj = function () {
-	var
+old_assign_to_complex_obj = mkTestFunc(function old_assign_to_complex_obj() {
+	var	
 	id = complexObj.id,
-	name = complexObj.user.name,
-	street = complexObj.user.addr.street,
-	APPL = complexObj.user.portfolio.stock.APPL,
-	number = complexObj.user.portfolio.bond.GOOG.number;
-},
+	user = complexObj.user,
+	name = user.name,
+	street = user.addr.street,
+	APPL = user.portfolio.stock.APPL,
+	number = user.portfolio.bond.GOOG.number;
+}),
 
-es6_assign_to_complex_obj = function () {
+es6_assign_to_complex_obj = mkTestFunc(function es6_assign_to_complex_obj() {
 	
 	var { id,
 	
@@ -136,20 +208,20 @@ es6_assign_to_complex_obj = function () {
 	      }
 	      
 	   } = complexObj;
-},
+}),
 
-old_assign_to_simpleArray = function () {
+old_assign_to_simpleArray = mkTestFunc(function old_assign_to_simpleArray() {
 	var
 	a0 = simpleArray[0],
 	a1 = simpleArray[1],
 	a2 = simpleArray[2]
-},
+}),
 
-es6_assign_to_simpleArray = function () {
+es6_assign_to_simpleArray = mkTestFunc(function es6_assign_to_simpleArray() {
 	var [ a0, a1 , a2 ] = simpleArray;
-},
+}),
 
-old_assign_to_complexArray = function () {
+old_assign_to_complexArray = mkTestFunc(function old_assign_to_complexArray() {
 	var
 	a0 = complexArray[0],
 	a10 = complexArray[1][0],
@@ -159,9 +231,9 @@ old_assign_to_complexArray = function () {
 	a20_3 = complexArray[3][1][0],
 	a30 = complexArray[3][1][1][0],
 	a31 = complexArray[3][1][1][1];
-},
+}),
 
-es6_assign_to_complexArray = function () {
+es6_assign_to_complexArray = mkTestFunc(function es6_assign_to_complexArray() {
 	var [
 	    	a0,
 	    	
@@ -172,37 +244,48 @@ es6_assign_to_complexArray = function () {
 	    	[ a10_3, [ a20_3, [ a30, a31 ] ] ]
 	    	
 	    ] = complexArray;
-};
+}),
 
-var
-i, 
-olds2simpleObj = [], es6s2simpleObj = [],
-olds2complexObj = [], es6s2complexObj = [],
-olds2simpleArray = [], es6s2simpleArray = [],
-olds2complexArray = [], es6s2complexArray = [];
+old_for_loop_simpleArray = mkTestFunc(function old_for_loop_simpleArray() {
+	
+	var i, v;
+	
+	for (i = 0; i < simpleArray.length; ++i) v = simpleArray[i];	
+}),
+
+es6_for_of_simpleArray = mkTestFunc(function es6_for_of_simpleArray() {
+	
+	var v;
+	
+	for (v of simpleArray);
+});
+;
+
+var i;
 
 for (i = 0; i < 30; ++i) {
-	olds2simpleObj.push(evaluate(old_assign_to_simple_obj));
-	es6s2simpleObj.push(evaluate(es6_assign_to_simple_obj));
-	olds2complexObj.push(evaluate(old_assign_to_complex_obj));
-	es6s2complexObj.push(evaluate(es6_assign_to_complex_obj));
+	old_assign_to_simple_obj.times.push(evaluate(old_assign_to_simple_obj));
+	es6_assign_to_simple_obj.times.push(evaluate(es6_assign_to_simple_obj));
+	old_assign_to_complex_obj.times.push(evaluate(old_assign_to_complex_obj));
+	es6_assign_to_complex_obj.times.push(evaluate(es6_assign_to_complex_obj));
 }
 
 for (i = 0; i < 3; ++i) {
-	olds2simpleArray.push(evaluate(old_assign_to_simpleArray));
-	es6s2simpleArray.push(evaluate(es6_assign_to_simpleArray));
-	olds2complexArray.push(evaluate(old_assign_to_complexArray));
-	es6s2complexArray.push(evaluate(es6_assign_to_complexArray));
+	old_assign_to_simpleArray.times.push(evaluate(old_assign_to_simpleArray));
+	es6_assign_to_simpleArray.times.push(evaluate(es6_assign_to_simpleArray));
+	old_assign_to_complexArray.times.push(evaluate(old_assign_to_complexArray));
+	es6_assign_to_complexArray.times.push(evaluate(es6_assign_to_complexArray));
+	old_for_loop_simpleArray.times.push(evaluate(old_for_loop_simpleArray));
+	es6_for_of_simpleArray.times.push(evaluate(es6_for_of_simpleArray));
 }
 
-calAVG("old_assign_to_simple_obj", olds2simpleObj);
-calAVG("es6_assign_to_simple_obj", es6s2simpleObj);
-calAVG("old_assign_to_complex_obj", olds2complexObj);
-calAVG("es6_assign_to_complex_obj", es6s2complexObj);
-calAVG("old_assign_to_simpleArray", olds2simpleArray);
-calAVG("es6_assign_to_simpleArray", es6s2simpleArray);
-calAVG("old_assign_to_complexArray", olds2complexArray);
-calAVG("es6_assign_to_complexArray", es6s2complexArray);
+insertComparison(old_assign_to_simple_obj, es6_assign_to_simple_obj);
+insertComparison(old_assign_to_complex_obj, es6_assign_to_complex_obj);
+insertComparison(old_assign_to_simpleArray, es6_assign_to_simpleArray);
+insertComparison(old_assign_to_complexArray, es6_assign_to_complexArray);
+insertComparison(old_for_loop_simpleArray, es6_for_of_simpleArray);
+
+
 
 </script>
 
